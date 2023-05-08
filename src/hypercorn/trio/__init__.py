@@ -45,9 +45,9 @@ async def serve(
         mode: Specify if the app is WSGI or ASGI.
     """
     if config.debug:
-        warnings.warn("The config `debug` has no affect when using serve", Warning)
+        warnings.warn("The config `debug` has no effect when using serve", Warning)
     if config.workers != 1:
-        warnings.warn("The config `workers` has no affect when using serve", Warning)
+        warnings.warn("The config `workers` has no effect when using serve", Warning)
 
     await worker_serve(
         wrap_app(app, config.wsgi_max_body_size, mode),

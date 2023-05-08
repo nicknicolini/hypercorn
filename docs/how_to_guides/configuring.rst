@@ -1,4 +1,5 @@
 .. _how_to_configure:
+.. _debug mode: https://docs.python.org/3/library/asyncio-dev.html#debug-mode
 
 Configuring
 ===========
@@ -19,7 +20,7 @@ the command line using the ``-c``, ``--config`` option e.g.
 
      hypercorn --config file_path/file_name.toml
 
-To load programatically :meth:`hypercorn.config.Config.from_toml` can
+To load programmatically :meth:`hypercorn.config.Config.from_toml` can
 be used,
 
 .. code-block:: python
@@ -40,7 +41,7 @@ command line using the ``-c``, ``--config`` option with the
 
      hypercorn --config python:module_name
 
-To load programatically :meth:`hypercorn.config.Config.from_object`
+To load programmatically :meth:`hypercorn.config.Config.from_object`
 can be used,
 
 .. code-block:: python
@@ -60,7 +61,7 @@ command line using the ``-c``, ``--config`` option with the
 
      hypercorn --config file:file_path/file_name.py
 
-To load programatically :meth:`hypercorn.config.Config.from_pyfile`
+To load programmatically :meth:`hypercorn.config.Config.from_pyfile`
 can be used,
 
 .. code-block:: python
@@ -95,8 +96,10 @@ bind                       ``-b``, ``--bind``            The TCP host/address to
 ca_certs                   ``--ca-certs``                Path to the SSL CA certificate file.
 certfile                   ``--certfile``                Path to the SSL certificate file.
 ciphers                    ``--ciphers``                 Ciphers to use for the SSL setup.               ``ECDHE+AESGCM``
-debug                      ``--debug``                   Enable debug mode, i.e. extra logging           ``False``
-                                                         and checks.
+debug                      ``--debug``                   Enable debug mode for the worker_class.           ``False``
+                                                         If using asyncio or uvloop, sets the event
+                                                         loop to `debug mode`_ and turns on debug logs.
+                                                         If using trio, debug mode has no effect.
 dogstatsd_tags             N/A                           DogStatsd format tag, see
                                                          :ref:`using_statsd`.
 errorlog                   ``--error-logfile``           The target location for the error log,

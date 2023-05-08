@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import warnings
 from functools import partial
 from multiprocessing.synchronize import Event as EventType
 from typing import Awaitable, Callable, Optional
@@ -102,6 +103,9 @@ async def worker_serve(
 def trio_worker(
     config: Config, sockets: Optional[Sockets] = None, shutdown_event: Optional[EventType] = None
 ) -> None:
+    if config.debug:
+        warnings.warn("The config `debug` has no effect when using the trio worker.", Warning)
+
     if sockets is not None:
         for sock in sockets.secure_sockets:
             sock.listen(config.backlog)

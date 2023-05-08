@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import platform
 import signal
 import ssl
@@ -223,7 +224,11 @@ def _run(
 ) -> None:
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    loop.set_debug(debug)
+
+    if debug:
+        loop.set_debug(debug)
+        logging.getLogger("asyncio").setLevel(logging.DEBUG)
+
     loop.set_exception_handler(_exception_handler)
 
     try:
